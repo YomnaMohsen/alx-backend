@@ -47,6 +47,8 @@ class Server:
         return self.dataset()[start:end]
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+        """takes the same arguments as get_page and returns
+        a dictionary containing the certain key-value pairs"""
         data = self.get_page(page, page_size)
         data_set = self.dataset()
         total = math.ceil(len(data_set) / page_size)
