@@ -41,7 +41,8 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """"""
+        """a method that returns set of key:value pairs after deleting
+        some row from dataset"""
 
         assert isinstance(index, int) and index > 0
         assert index < len(self.indexed_dataset())
