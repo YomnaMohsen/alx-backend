@@ -23,7 +23,7 @@ class FIFOCache(BaseCaching):
                 del self.cache_data[discardkey]
                 print("DISCARD: {}".format(discardkey))
 
-    def get(self, key, item):
+    def get(self, key):
         """ get an item from the cache
         """
         return self.cache_data.get(key, None)
