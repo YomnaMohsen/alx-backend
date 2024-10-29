@@ -17,12 +17,11 @@ class LIFOCache(BaseCaching):
         """ Add an item in the cache
         """
         if(item and key):
-            self.cache_data[key] = item
-            if(len(self.cache_data) > self.MAX_ITEMS):
-                last = len(self.cache_data)
-                discardkey = list(self.cache_data.keys())[last-2]
+            if(len(self.cache_data) == self.MAX_ITEMS):
+                discardkey = list(self.cache_data.keys())[self.MAX_ITEMS-1]
                 del self.cache_data[discardkey]
                 print("DISCARD: {}".format(discardkey))
+            self.cache_data[key] = item
 
     def get(self, key):
         """ get an item from the cache
