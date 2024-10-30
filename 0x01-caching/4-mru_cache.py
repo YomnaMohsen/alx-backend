@@ -20,12 +20,12 @@ class MRUCache(BaseCaching):
         if(item and key):
             self.cache_data[key] = item
             if key in self.lrulist_keys:
-                self.lrulist_keys.remove(key)
-            self.lrulist_keys.append(key)    
+                self.lrulist_keys.remove(key)    
             if(len(self.cache_data) > self.MAX_ITEMS):
                 discardkey = self.lrulist_keys.pop()
                 del self.cache_data[discardkey]
                 print("DISCARD: {}".format(discardkey))
+            self.lrulist_keys.append(key)    
             
 
     def get(self, key):
