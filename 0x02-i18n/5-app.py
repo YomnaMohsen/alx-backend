@@ -2,6 +2,7 @@
 """setup flask-babel"""
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
+from typing import Optional, Dict
 from jinja2 import Environment
 
 
@@ -26,7 +27,7 @@ env = Environment(extensions=["jinja2.ext.autoescape", "jinja2.ext.with_"])
 app.config.from_object(Config)
 
 
-def get_user():
+def get_user() -> Optional[Dict]:
     """returns a user dictionary or None if the
     ID cannot be found or if login_as
     url parameter was not passed"""
@@ -35,7 +36,7 @@ def get_user():
 
 
 @app.before_request
-def before_request():
+def before_request() -> None:
     """find if valid user returns it in g.user"""
     g.user = get_user()
 
@@ -49,6 +50,13 @@ def get_locale():
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
         return locale
+    if (g.user):
+        loc = g.user.get('locale')
+    if loc and  loc in app.config['LANGUAGES']:
+        return loc 
+    loc = request.headers.get('locale', None)
+    if loc in app.config['LANGUAGES']:
+        return loc   
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
