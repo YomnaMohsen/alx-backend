@@ -49,14 +49,21 @@ def get_locale():
 
     locale = request.args.get('locale')
     if locale in app.config['LANGUAGES']:
-        return locale  
+        return locale
+    if (g.user):
+        loc = g.user.get('locale')
+    if loc and  loc in app.config['LANGUAGES']:
+        return loc 
+    loc = request.headers.get('locale', None)
+    if loc in app.config['LANGUAGES']:
+        return loc   
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def home() -> str:
     """return simple home page"""
-    return render_template("5-index.html")
+    return render_template("6-index.html")
 
 
 if __name__ == '__main__':
