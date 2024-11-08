@@ -48,6 +48,7 @@ def get_user():
 
 @app.before_request
 def before_request():
+    """find if valid user returns it in g.user"""
     g.user = get_user()
 
 
