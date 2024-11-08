@@ -3,10 +3,12 @@
 from flask import Flask, render_template, request
 from flask_babel import Babel
 from jinja2 import Environment
-
 app = Flask(__name__)
 babel = Babel(app)
+
+
 env = Environment(extensions=["jinja2.ext.autoescape", "jinja2.ext.with_"])
+
 class Config:
     """confg lang and timezone """
     LANGUAGES = ['en', 'fr']
@@ -22,17 +24,14 @@ def get_locale():
     """ Use request.accept_languages to
     determine the best match with
     our supported languages"""
-
-    locale = request.args.get('locale')
-    if locale in app.config['LANGUAGES']:
-        return locale
+    
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 @app.route('/')
 def home():
     """return simple home page"""
-    return render_template("4-index.html")
+    return render_template("3-index.html")
 
 
 if __name__ == '__main__':
