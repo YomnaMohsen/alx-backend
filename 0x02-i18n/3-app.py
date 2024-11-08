@@ -30,7 +30,7 @@ def get_locale():
 
 
 @app.route('/')
-def home():
+def home() -> str:
     """return simple home page"""
     return render_template("3-index.html")
 
